@@ -22,7 +22,7 @@ In particular, we are visually aware that cGAN successfully generated images whi
 
 The following is a screenshot illustrating our abiliity to indicate what regions of a face allows us to determine if it is "attractive male" or "attractive female with high cheek bones".  
 <p align="center">
-<img src="/images/Female&MaleEmbeddings.png" width="800" height="350">
+<img src="/images/Female&MaleEmbeddings.png" width="850" height="250">
 </p>
 
 ### Citations:
