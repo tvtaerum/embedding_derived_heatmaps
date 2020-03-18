@@ -1,4 +1,4 @@
-## cGANs: label derived cGANs
+## cGANs: label derived embeddings
 ### Exploring where differences come from.  
 
 It's one thing for a neural net to distinguish between healthy children and those with pneumonia, it's another to be able to visually identity what the differences are that the neural net depended on.  Are the differences the same as what an expert would consider or are the differences partly based on artifacts.  As we observed in https://github.com/tvtaerum/cGANs_housekeeping, we are able to generate images which are based on the same weights modified only by an embedding label (e.g. "attractive male" vs "attractive female with high cheeks bones").  What happens when we apply the same processes to xray images of healthy children and those with bacterial and viral pneumonia. Are the predictions sufficiently strong that we can visually distinguish between healthy, viral pneumonia, and bacterial pneumonia based on generated images?     
