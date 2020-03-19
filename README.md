@@ -26,7 +26,7 @@ The following is a screenshot illustrating our abiliity to indicate what regions
 <p align="center">
 <img src="/images/Female&MaleEmbeddings.png" width="650" height="290">
 </p>
-In particular, we have four rows of figures.  Row 1 is a series of female images.  Row 2 is a series of male images.  Row 3 is a series of feminization images.  Row 4 is a series of masculinization images.  
+In particular, we have four rows of figures:  female, male, delta female, and delete male faces.   
 
 ### Citations:
 <dl>
