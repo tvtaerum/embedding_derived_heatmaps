@@ -21,11 +21,11 @@ Considerable effort has been applied to creating discriminators between patients
 As a reminder of what was previously established, we can see in the faces above, that the https://github.com/tvtaerum/cGANs_housekeeping program did a good job of creating images that are obviously "attractive males" in contrast to "attractive females with high cheek bones".  In particular, we are visually aware that cGAN successfully generated images which are clearly "attractive male" and "attractive female with high cheek bones" but can we generate images which make apparent the differences between "healthy lungs", "viral pneumonia" and "bacterial pneumonia".  
 </p>
 
-The following is a screenshot illustrating our abiliity to indicate what regions of a face allows us to determine if it is "attractive male" or "attractive female with high cheek bones".  
+The following is a screenshot illustrating our abiliity to indicate what regions of a face allows us to determine if it is and "attractive female with high cheek bones" or an "attractive male".   
 <p align="center">
 <img src="/images/Female&MaleEmbeddings.png" width="650" height="290">
 </p>
-In particular, we have four rows of figures:  female, male, delta female, and delete male faces.   
+In particular, we have four rows of figures:  female, male, delta female, and delete male faces.  Yellow identifies large additions to make an image female or male, green represents moderate additions, and purple represents small additions.  To clarify, most often "addition" refers to something which is "added".  So, for instance, a beard is "added"; higher eyebrows are "added"; wider eyes are "added".  The definition is somewhat arbitrary but is detected by looking for darker regions.   
 
 ### Citations:
 <dl>
