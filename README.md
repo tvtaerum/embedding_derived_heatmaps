@@ -34,9 +34,9 @@ In particular, we have four rows of figures:  female, male, delta female, and de
 <dt>Iván de Paz Centeno, MTCNN face detection implementation for TensorFlow, as a PIP package,</dt><dd> Available from https://github.com/ipazc/mtcnn, accessed February, 2020. </dd>
 <dt>Jeff Heaton, Jeff Heaton's Deep Learning Course,</dt><dd> Available from https://www.heatonresearch.com/course/, accessed February, 2020. </dd>
 <dt>Wojciech Łabuński, X-ray - classification and visualisation</dt>  <dd> Available from 
-https://www.kaggle.com/wojciech1103/x-ray-classification-and-visualisation </dd>
+https://www.kaggle.com/wojciech1103/x-ray-classification-and-visualisation, accessed March, 2020</dd>
 <dt>Tory Walker, Histogram equalizer, </dt> <dd>Available from 
-https://github.com/torywalker/histogram-equalizer</dd>
+https://github.com/torywalker/histogram-equalizer, accessed March, 2020</dd>
 </dl>
 
 ### Deliverables:
