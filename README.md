@@ -1,24 +1,22 @@
 ## cGANs: more than a pretty face
 ### Exploring where differences come from.  
 
-We make substantial progress when we go from discriminating between images to actually generating images.  We make even more progress when we are able to "make sense" of differences between images.  While we quickly recognize if a face is masculine or feminine, we aren't always aware of what makes the difference.  Can we produce visual representations of these differences?  On the other hand, most nonmedical people cannot distinguish between the x-rays of the lungs of healthy children and those with viral or bacterial pneumonia.  Furthermore, it's one thing for a neural net to distinguish between healthy children and those with pneumonia, it's another to be able to visually identity what the differences are that the neural net has depended on.  Are the differences the same as what an expert would consider or are the differences partly based on artifacts.  
+We make substantial progress when we go from discriminating between images to actually generating images.  We make even more progress when we are able to "make sense" of differences between images.  While we quickly recognize if a face is masculine or feminine, we aren't always aware of what makes the difference.  Can we produce visual representations of these differences?  On the other hand, most nonmedical people cannot distinguish between the x-rays of the lungs of healthy children and those with viral or bacterial pneumonia.  Furthermore, it's one thing for a neural net to distinguish between healthy children and those with pneumonia, it's another to be able to highlight the differences are that the neural net has depended on.  Are the differences the same as what an expert would consider, are the differences based on artifacts, or do the highlighted diffences provide new insights.   
+
+<p align="center">
+<img src="/images/attractiveFaces.png" width="650" height="135">
+</p>
 
 As we observed in https://github.com/tvtaerum/cGANs_housekeeping, we are able to generate images which are based on the same weights modified only by an embedding label (e.g. "attractive male" vs "attractive female with high cheeks bones").  What happens when we apply the same processes to x-ray images of healthy lungs and those with bacterial and viral pneumonia. Are the predictions sufficiently strong that we can visually distinguish between healthy, viral pneumonia, and bacterial pneumonia based on generated images?     
 
 The first thing we have to do is prove the technique - that we are able to identify and graphically display the source of differences between masculine and feminine faces using the results from the cGANs housekeeping display.  Once we have proven we can do that, we need to investigate if we can generate images of healthy lungs versus lungs with pneumonia.  And then we display the source of the differences in the same manner we did with generated faces.  
 
 I thank Jason Brownlee for his work and tutorials at https://machinelearningmastery.com (citations below in project) and Wojciech Łabuński for his excellent application of image resizing and histogram equilization at https://www.kaggle.com/wojciech1103/x-ray-classification-and-visualisation.  Data collected from: https://data.mendeley.com/datasets/rscbjbr9sj/2 License: CC BY 4.0 Citation: http://www.cell.com/cell/fulltext/S0092-8674(18)30154-5
-<p align="center">
-<img src="/images/WildFoxSideView.png" width="550" height="270">
-</p>  
 
 ### Motivation for housekeeping with xrays of children with pneumonia:
 Considerable effort has been applied to creating discriminators between patients who are healthy and those patients with pneumonia based on x-rays, an avenue which hasn't been explored as much is identifying where these differences exist.  In some cases, the discriminator is run, 90% accuracy is achieved, but no test that I am aware of tells the observer what the differences are and whether or not the apparent differences may partly be an artifact.  There are many indirect tests but what if I want to know which regions in an image are helpful in discrimination.  
 
 As a reminder of what was previously established, we can see in the faces generated below, that the https://github.com/tvtaerum/cGANs_housekeeping program did a good job of creating images that are obviously "attractive males" in contrast to "attractive females with high cheek bones".  
-<p align="center">
-<img src="/images/attractiveFaces.png" width="650" height="135">
-</p>
 In particular, we are visually aware that cGAN successfully generated images which are clearly "attractive male" and "attractive female with high cheek bones" but can the cGAN generate images which make apparent the differences between "healthy lungs", "viral pneumonia" and "bacterial pneumonia".  
 </p>
 
