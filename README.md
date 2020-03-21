@@ -70,10 +70,11 @@ https://github.com/torywalker/histogram-equalizer, accessed March, 2020</dd>
   <li>can we create images which point out the differences between typical female and male faces</li>
   <li>can we generate images of x-rays differentiating between healthy lungs and those with bacterial and viral pneumonia</li>
   <li>can we create images which point out the differneces betweeen healthy lungs and those with bacterial and viral pneumonia</li>
+  <li>cGan streams and data sources</li>
 </ol>
 
 
-### 1.  is there an automatic way to recover from some "mode collapse"?:
+### 1.  can we generate images of female and male faces based solely on embedding label:
 
 Even with reasonable learning rates, convergence can slide into "mode collapse" and require a manual restart.  The stream provides one way of giving intial estimates multiple but limited opportunities to halt it's slide towards mode collapse.  The process also allows the stream to retain whatever progress it has made towards convergence while recovering from mode collapse.     
 
@@ -140,7 +141,7 @@ It's important to note that a critical aspect of this stream is to help the novi
 </p>
 Typically, the situation for loss is reported every five iterations.  As illustrated in the area in the red blocked area, when the program appears to be drifting into mode collapse, losses are reported on every iteration.  In the blue blocked area, we can see the generative loss beginning to incease beyond reasonable limits.  In the green blocked area, we see the tendency for when the discriminator or generator losses move beyond reasonable limits, the gans losses move out of range.  And finally, in the brown blocked area, we see a counter of the number of times weights have been saved to be used later in recovery.  
 
-### 2.  is there a way to restart a cGAN which has not completed convergence:
+### 2. can we create images which point out the differences between typical female and male faces:
 There is nothing quite as problematic as running a program and six days later the process is interrupted when it appears to be 90% complete.  Like many others, I have run streams for over 21 days using my GPU before something goes wrong and I am unable to restart the process.  Progress is measured in "epochs".  There is no guarantee but with a bit of good fortune and cGAN steams which are properly set up, every epoch brings an improvement in clarity.  The images which follow illustrate observed improvements over epochs.  
 <p align="center">
 <img src="/images/improvedImagesOverEpochs.png" width="650" height="500">
@@ -190,7 +191,7 @@ qRestart is set to True indicating the program needs to start from where it left
 "epochs_goal" refers to how many epochs you think you'd like to complete.  
 
 
-### 3.  are there different kinds of random initialization processes that can be helpful in accelerating convergence?
+### 3.  can we generate images of x-rays differentiating between healthy lungs and those with bacterial and viral pneumonia?
 While the use of normal like distributions may be useful, there is no reason to believe that other distributions will not work.  A small investigation on my part suggested that leptokurtic distributions were poorest in generating good images.  For most of the results discussed here, I use a uniform distribution in a bounded 100-dimensional space.   
 ```Python
 def generate_latent_points(latent_dim, n_samples, cumProbs, n_classes=4):
@@ -210,7 +211,7 @@ def generate_latent_points(latent_dim, n_samples, cumProbs, n_classes=4):
 ```
 Substantially, the routine divides the range of values from -3.0 to +3.0 into equal intervals and then randomizes the values by a shuffle.  The process works - I'm still examining whether it accelerates convergence with images.  
  
-### 4.  how important is the source material (original images of faces)?
+### 4.  can we create images which point out the differneces betweeen healthy lungs and those with bacterial and viral pneumonia?
 In my attempts to improve the results of the generations, I initially overlooked a critical factor - what does the transformed data going into the cGAN look like.  When the data going into a stream is a derivative of another process, as in this case, it is critical to examine the quality of the input data before declaring the results to be useful or invalid.  
 
 The code to examine the data going into the cGAN is trivial and is included in the final stream.  
@@ -240,7 +241,7 @@ In spite of all the imperfections in individual images, my belief is the final r
                         results = vstack((results, X))   # stack the images for display
             plot_generated(filename, results, labels_input, 10, n_samples, n_classes)   #generate plot
 ```
-###  8.  cGan streams and data sources:
+###  5.  cGan streams and data sources:
 The following is an outline of the programming steps and Python code used to create the results observed in this repository.  There are three Python programs which are unique to this repository.  The purpose of the code is to assist those who struggled like I struggled to understand the fundamentals of Generative Adversarial Networks and to generate interesting and useful results beyond number and fashion generation.  My edits are not elegant... it purports to do nothing more than resolve a few issues which I imagine many novices to the field of Generative Adversarial Networks face.  If you know of better ways to do something, feel free to demonstrate it.  If you know of others who have found better ways to resolve these issues, feel free to point us to them.  
 
 The recommended folder structure looks as follows:
