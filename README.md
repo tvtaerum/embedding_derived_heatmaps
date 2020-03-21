@@ -104,10 +104,6 @@ There are three parts in the screen shots below:
 
 ### 2. can we create images which point out the differences between typical female and male faces:
 There is nothing quite as problematic as running a program and six days later the process is interrupted when it appears to be 90% complete.  Like many others, I have run streams for over 21 days using my GPU before something goes wrong and I am unable to restart the process.  Progress is measured in "epochs".  There is no guarantee but with a bit of good fortune and cGAN steams which are properly set up, every epoch brings an improvement in clarity.  The images which follow illustrate observed improvements over epochs.  
-<p align="center">
-<img src="/images/improvedImagesOverEpochs.png" width="650" height="500">
-</p>
-  
 
 
 ### 3.  can we generate images of x-rays differentiating between healthy lungs and those with bacterial and viral pneumonia?
