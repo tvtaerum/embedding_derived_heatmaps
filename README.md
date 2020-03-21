@@ -3,29 +3,29 @@
 
 We make substantial progress when we go from discriminating between images to actually generating images.  We make even more progress when we are able to "make sense" of differences between images.  It's like asking a child, 1. tell me if this is a mom or a dad, 2. draw a mom and a dad for me, and 3. point out the differences between a drawing of a mom and a dad.    
 
-While we quickly recognize if a face is a typical male or female, we often have difficulties describing the differences.  Can we produce visual representations of these differences?  Similarily, most nonmedical people cannot distinguish between the x-rays of the lungs of healthy children and those with viral or bacterial pneumonia.  Again, it's one thing for a neural net to distinguish between healthy children and those with pneumonia, it demonstrates even greater insight when it can generate images of healthy lungs or lungs with pneumonia.  It's an even larger step when a neural net can highlight the differences it has depended on.  Are the differences the same as what an expert would consider, are the differences based on artifacts, or do the highlighted diffences provide additional insights.   
-
 <p align="center">
 <img src="/images/attractiveFaces.png" width="650" height="135">
 </p>
 
+While we quickly recognize if a face is typical female or male, we often have difficulties describing the differences.  Can we produce visual representations of these differences?  Similarily, most nonmedical people cannot distinguish between the x-rays of the lungs of healthy children and those with viral or bacterial pneumonia.  Again, it's one thing for a neural net to distinguish between healthy children and those with pneumonia, it demonstrates even greater insight when it can generate images of healthy lungs or lungs with pneumonia.  It's an even larger step when a neural net can highlight the differences it has depended on.  Are the differences the same as what an expert would consider, are the differences based on artifacts, or do the highlighted differences provide additional insights.   
+
 As we observed in https://github.com/tvtaerum/cGANs_housekeeping, we are able to generate images which are based on the same weights modified only by an embedding label (e.g. "attractive male" vs "attractive female with high cheeks bones").  What happens when we apply the same processes to x-ray images of healthy lungs and those with bacterial and viral pneumonia. Are the predictions sufficiently strong that we can visually distinguish between healthy, viral pneumonia, and bacterial pneumonia based on generated images?     
 
-The first thing we have to do is prove the technique - that we are able to identify and graphically display the source of differences between typical male and female faces using the results from the cGANs housekeeping display.  Once we have proven we can do that, we need to investigate if we can generate images of healthy lungs and lungs with pneumonia.  And then we display the source of the differences in the same manner we did with generated faces.  
+The first thing we have to do is prove the technique - that we are able to identify and graphically display the source of differences between typical male and female faces using the results from the cGANs housekeeping display.  Once we have proven we can do that, we need to investigate if we can generate images of healthy lungs and lungs with pneumonia.  And then can we display the source of the differences in the same manner we did with generated faces.  
 
 I thank Jason Brownlee for his work and tutorials at https://machinelearningmastery.com (citations below in project) and Wojciech Łabuński for his excellent application of image resizing and histogram equilization at https://www.kaggle.com/wojciech1103/x-ray-classification-and-visualisation.  Data collected from: https://data.mendeley.com/datasets/rscbjbr9sj/2 License: CC BY 4.0 Citation: http://www.cell.com/cell/fulltext/S0092-8674(18)30154-5
 
 ### Motivation for housekeeping with xrays of children with pneumonia:
 Considerable effort has been applied to creating discriminators between patients who are healthy and those patients with pneumonia based on x-rays, an avenue which hasn't been explored as much is identifying where these differences exist.  In some cases, the discriminator is run, 90% accuracy is achieved, but no test that I am aware of tells the observer what the differences are and whether or not the apparent differences may partly be an artifact.  There are many indirect tests but I want to know which regions in an image are helpful in discrimination.  
 
-As a reminder of what was previously established, we can see in the faces above, that the https://github.com/tvtaerum/cGANs_housekeeping program did a good job of creating images that are obviously "attractive males" in contrast to "attractive females with high cheek bones".  In particular, we are visually aware that cGAN successfully generated images which are clearly "attractive male" and "attractive female with high cheek bones" but can we generate images which make apparent the differences between "healthy lungs", "viral pneumonia" and "bacterial pneumonia".  
+As a reminder of what was previously established, we can see in the faces above, that the https://github.com/tvtaerum/cGANs_housekeeping program did a good job of creating images that are obviously "attractive females with high cheek bones" in contrast to "attractive males".  Can we generate images which make apparent the differences between typical female and male faces.  Can we also generate images which make apparent the differences between "healthy lungs", "viral pneumonia" and "bacterial pneumonia".  
 </p>
 
 The following is a screenshot illustrating our abiliity to indicate what regions of a face allows us to determine if it is and "attractive female with high cheek bones" or an "attractive male".   
 <p align="center">
 <img src="/images/Female&MaleEmbeddings.png" width="650" height="290">
 </p>
-In particular, we have four rows of figures:  female, male, delta female, and delete male faces.  Yellow identifies large additions to make an image female or male, green represents moderate additions, and purple represents small additions.  To clarify, most often "addition" refers to something which is "added".  So, for instance, a beard is "added"; higher eyebrows are "added"; wider eyes are "added".  The definition is somewhat arbitrary but is detected by looking for darker regions.   
+In particular, we have four rows of figures:  female, male, delta female, and delete male faces.  Yellow identifies large additions to make an image female or male, green represents moderate additions, and purple represents small additions.  To clarify, most often "addition" refers to something which is "added".  So, for instance, a beard or shadow is "added"; higher eyebrows are "added"; wider eyes are "added".  The definition is somewhat arbitrary but is detected by looking for darker regions.   
 
 ### Citations:
 <dl>
@@ -66,27 +66,12 @@ https://github.com/torywalker/histogram-equalizer, accessed March, 2020</dd>
  Creating a cGAN as illustration, I provide limited working solutions to the following problems:
 
 <ol type="1">
-  <li>is there an automatic way to recover before "mode collapse"?</li>
-  <li>is there a way to restart a cGAN which is interrupted or has not completed convergence?</li>
-  <li>are there different kinds of random initialization values that can be useful?</li>
-  <li>how important is the source material (original xray images)?</li>
-  <li>how can I use embedding when I have descriptions of xrays?</li>
-  <li>how can I vectorize from generated face to generated xray when using embedding?</li>
-  <li>what other adjustments might be applied?</li>
-<ol type="a">
-	<li>selecting all xrays available</li>
-        <li>changing optimization from Adam to Adamax for embedding</li>
-        <li>shutting off Tensorflow warning messages</li>
-        <li>stamping labels on images</li>
+  <li>can we generate images of female and male faces based solely on embedding labels</li>
+  <li>can we create images which point out the differences between typical female and male faces</li>
+  <li>can we generate images of x-rays differentiating between healthy lungs and those with bacterial and viral pneumonia</li>
+  <li>can we create images which point out the differneces betweeen healthy lungs and those with bacterial and viral pneumonia</li>
 </ol>
-  <li>cGan stream:
-<ol type="a">        
-	<li>download celebrity images from https://www.kaggle.com/jessicali9530/celeba-dataset</li>
-        <li>select out subset of images with attractive faces</li>
-        <li>cGan stream</li>
-        <li>vectorize images</li>
-</ol>
-</ol>
+
 
 ### 1.  is there an automatic way to recover from some "mode collapse"?:
 
@@ -237,31 +222,6 @@ It's worth remembering that the GAN process sees the images at the convoluted pi
 
 In spite of all the imperfections in individual images, my belief is the final results are impressive.  Selecting out only faces featured as attractive helped in obtaining results which had considerable clarity.  
 
-### 5.  how can I use embedding when I have descriptions of images?
-There are circumstances where we want to insure that a generated image has particular characteristics, such as a face being attractive, selecting a particular gender, and having facial features such as high cheek bones and large lips.  Looking into the near future, it will be possible to create realistic GAN generated images of models wearing fashionable clothing, with specific expressions, and poses for catalogues.  In this example, we could enter in the features:  attractive, female, high cheek bones, and large lips in order to get many faces for fashion models.    
-
-There were three parts to this process:  
-1. selecting a subset of faces (only those identified as being "attractive"):
-Details of the process are discussed in section 7. 
-2. identifying the characteristics or attributes to be used and their probabilities in the population of images:
-<ol type="a">
-      <li>..... 0 = featured as attractive and female and not high cheek bone and not large lips</li>
-	<li>..... 1 = featured as attractive and male</li>
-	<li>..... 2 = featured as attractive and female and high cheek bone</li>
-      <li>..... 3 = featured as attractive and female and not high cheek bone and large lips</li>
-</ol>
-
-3. setting up the cGAN so that it will generate and save faces based on the features (embeddings/labels) associated with an image.  
-![random generated faces](images/4X10RandomlyGeneratedFaces.png)
-There are four kinds of embedding and the identity of the embedding (0 thru 3) is included in the generated face. In many ways, those faces identified as being 0 are "female without high cheeck bones and without large lips".  Those faces identified as 1 (male), are clearly male.  Those faces identifed as 2 are female with high cheek bones.  Feature 3 identifies those faces which supposedly have large lips.  The labels (0 thru 3) are added when creating the image.  Explanations for what we found is discussed in section 6.  
-
-### 6.  how can I vectorize from generated face to generated face when using embedding?
-Jeff Brownlee provides a brilliant example of how to vectorize from one face to another face.  In addition to what Brownlee had done, we vectorize two generated faces and then, for the same 100-dimensional space, "add" the predictive value of the features through embedding as described in section 5. 
-
-![vectorized range of faces](images/4X10VectorizedRangeOfFaces.png)
-Going from left to right, we see the face on the left morphing into the face on the right.  When we compare each row, we see the four features described in section 5.  The only difference between each row are due to the predictive power of the embeddings/labels.  Of particular interest is comparing the second row (embedded value 1: attractive male) with the third row (embedded value 2: attractive female with high cheek bones). Everything except the embedding/label is identical.  
-
-From an analytical perspective, comparing rows 3 and 4 (embedded value 2: attractive female with high cheek bones versus embedded value 3: attractive female with large lips) may provide insight into what a feature actually means.  While the persons identifying features may believe they are only looking at a feature, such as the size of lips, the analytical process of cGans identifies what is uniquely different in comparing rows three and four.  
 
 ```Python
             n_classes = 4     
@@ -279,68 +239,6 @@ From an analytical perspective, comparing rows 3 and 4 (embedded value 2: attrac
                     else:
                         results = vstack((results, X))   # stack the images for display
             plot_generated(filename, results, labels_input, 10, n_samples, n_classes)   #generate plot
-```
-The programming fragment illustrates the effect of embedding, where the generated latent points are identical but the embedded labels are different - resulting in generated images which are marketly different.  The effect of label information is most clearly illustrated when we compare row 2 (males) and row 3 (females with high cheek dones).  
-
-### 7.  other changes that can be applied?
-
-There are a number of other adjustments which were made in order to improve outcomes.  
-
-#### a. select faces with certain characteristics - such as attractiveness - for analysis
- 
-Only faces identified as being attractive were included.  Given the attributes associated with attractiveness, such as symmetry, clarity and visibility, it appeared to be a good way to select out those faces which were complete.   
-```Python
-	# enumerate files
-	for idx, filename in enumerate(listdir(directory)):
-		# load the image
-		pixels = load_image(directory + filename)
-		# get face
-		face = extract_face(model, pixels)
-		if face is None:
-			continue
-		if data_attractive[idx] == -1.0:
-			continue
-```
-#### b. adjust for memory requirements
-
-Based on my own experiences, I'd surmise that one of the most frequent modifications novices have to make is making adustments so that the problem will fit on their GPU resources.  In many circumstances, this is done by adjusting batch sizes.  In this particular case, the fork required a change of n_batch from 128 to 64.  
-```Python
-def train(g_model, d_model, gan_model, dataset, latent_dim, n_epochs=100, n_batch=128, ist_epochs=0):
-	bat_per_epo = int(dataset[0].shape[0] / n_batch)
-...
-train(g_model, d_model, gan_model,  dataset, latent_dim, n_epochs=n_epochs, n_batch=64, ist_epochs=ist_epochs)
-```
-While the changing the size of batch is trivial, it often has unexpected outcomes which result in mode collapse.  
-
-#### c. change optimization from Adam to Adamax for embedding
-
-While Adam optimizers are generally used, Adamax is recommended when there are embeddings.  
-```Python
-	opt = Adamax(lr=0.00007, beta_1=0.08, beta_2=0.999, epsilon=10e-8)
-```
-#### d. turn off Tensorflow warnings for debugging purposes
-Tensorflow and Keras are both very good at giving warnings when syntax being used is out of date, dimensions do not match, or features (such as trainable=True) are not used as required.  The problem is you sometimes have to run through many warnings before seeing the impact of the issue.  In debugging circumstances, being able to shut off warnings can be helpful.  
-```Python
-qErrorHide = True
-if qErrorHide:
-    print("\n***REMEMBER:  WARNINGS turned OFF***\n***REMEMBER:  WARNINGS turned OFF***\n")
-    log().setLevel('ERROR')
-```
-#### e. stamp labels on images 
-Finally, it's helpful if the image has a label stamped on it so you can see, at a glance, whether or not the embedding matches what you believe ought to be features of the generated image.  
-```Python
-def save_plot(examples, labels, epoch, n=10):
-	examples = (examples + 1) / 2.0
-	# plot images
-	for i in range(n * n):
-		fig = plt.subplot(n, n, 1 + i)
-		strLabel = str(labels[i])
-		fig.axis('off')
-		fig.text(8.0,20.0,strLabel, fontsize=6, color='white')
-		fig.imshow(examples[i])
-	filename = 'celeb/results/generated_plot_e%03d.png' % (epoch+1)
-	plt.savefig(filename)
-	plt.close()
 ```
 ###  8.  cGan streams and data sources:
 The following is an outline of the programming steps and Python code used to create the results observed in this repository.  There are three Python programs which are unique to this repository.  The purpose of the code is to assist those who struggled like I struggled to understand the fundamentals of Generative Adversarial Networks and to generate interesting and useful results beyond number and fashion generation.  My edits are not elegant... it purports to do nothing more than resolve a few issues which I imagine many novices to the field of Generative Adversarial Networks face.  If you know of better ways to do something, feel free to demonstrate it.  If you know of others who have found better ways to resolve these issues, feel free to point us to them.  
