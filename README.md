@@ -102,93 +102,12 @@ There are three parts in the screen shots below:
 <img src="/images/escapingModeCollapse.png" width="850" height="225">
 </p>
 
-In layer 1 of the screen shot above, we can see at epoch 1/100 and iteration 126/781, the discriminator loss has dropped to near zero and the gan loss is beginning to escalate.  Left to itself, the discriminator loss would drop to zero and we would see mode collapse.  In this case, the saved discriminator weights (d_weights) are loaded back in and the stream recovers.  
-
-In layer 2, we see proof of recovery at the end of epoch 1 with discriminator loss at 0.459 and gan loss at 1.280.  At this point, the accuracy for "real" is 77% and fake is 93%.  These values may not sound impessive until we look at the generated faces from epoch 1.
-
-In layer 3, we see a screen shot of the generated faces from epoch 1 out of 100 epoches.  
-
-So how can we recover from a mode collapse?  The syntax below illustrates the core of the process:  
-
-```Python
-		if (d_loss1 < 0.001 or d_loss1 > 2.0) and ijSave > 0:
-			print("RELOADING d_model weights",j+1," from ",ijSave)
-			d_model.set_weights(d_trainable_weights)
-		if (d_loss2 < 0.001 or d_loss2 > 2.0) and ijSave > 0:
-			print("RELOADING g_model weights",j+1," from ",ijSave)
-			g_model.set_weights(g_trainable_weights)
-		if (g_loss < 0.010 or g_loss > 4.50) and ijSave > 0:
-			print("RELOADING gan_models weights",j+1," from ",ijSave)
-			gan_model.set_weights(gan_trainable_weights)
-```
-The previous programming fragment illustrates an approach which often prevents a stream from mode collapse.  It depends on having captured disciminator weights, generator weights, and gan weights either during initialization or later in the process when all model losses are within bounds.  The definition of model loss bounds are arbitrary but reflect expert opinion about when losses are what might be expected and when they are clearly much too high or much too low.  Reasonable discriminator and generator losses are between 0.1 and 1.0, and their arbitrary bounds are set to between 0.001 and 2.0.  Reasonable gan losses are between 0.2 and 2.0 and their arbitrary bounds are set to 0.01 and 4.5.  
-
-What happens then is discriminator, generator, and gan weights are collected when all three losses are "reasonable".  When an individual model's loss goes out of bounds, then the last collected weights for that particular model are replaced, leaving the other model weights are they are, and the process moves forward.  The process stops when mode collapse appears to be unavoidable even when model weights are replaced.  This is identified when a particular set of model weights continue to be reused but repeatedly result in out of bound model losses.   
-
-The programming fragment for saving the weights are:
-
-```Python
-	if d_loss1 > 0.30 and d_loss1 < 0.95 and d_loss2 > 0.25 and d_loss2 < 0.95 and g_loss > 0.40 and g_loss < 1.50:
-		d_trainable_weights = np.array(d_model.get_weights())
-		g_trainable_weights = np.array(g_model.get_weights())
-		gan_trainable_weights = np.array(gan_model.get_weights())
-```
-Needless to say, there are a few additional requirements which can be found in the Python program available at the end of this README document.  For instance, if your stream goes into mode collapse just after saving your trainable weights, there is little likelihood that the most recently saved weights will save the recovery.  
-
-It's important to note that a critical aspect of this stream is to help the novice get over the difficult challenge of making the first GAN program work.  As such, its focus is not simply on automatic ways to recover from mode collapse and methods of restarting streams, but on the debugging process that may be required.  To do this, we need constant reporting.  As we observe in the screen shot below, not every execution results in a requirement to load in most recent working trainable weights.  However, we do see information which may be helpful in understanding what is going on.  
-<p align="center">
-<img src="/images/nonEscapingModeCollapse.png" width="500" height="150">
-</p>
-Typically, the situation for loss is reported every five iterations.  As illustrated in the area in the red blocked area, when the program appears to be drifting into mode collapse, losses are reported on every iteration.  In the blue blocked area, we can see the generative loss beginning to incease beyond reasonable limits.  In the green blocked area, we see the tendency for when the discriminator or generator losses move beyond reasonable limits, the gans losses move out of range.  And finally, in the brown blocked area, we see a counter of the number of times weights have been saved to be used later in recovery.  
-
 ### 2. can we create images which point out the differences between typical female and male faces:
 There is nothing quite as problematic as running a program and six days later the process is interrupted when it appears to be 90% complete.  Like many others, I have run streams for over 21 days using my GPU before something goes wrong and I am unable to restart the process.  Progress is measured in "epochs".  There is no guarantee but with a bit of good fortune and cGAN steams which are properly set up, every epoch brings an improvement in clarity.  The images which follow illustrate observed improvements over epochs.  
 <p align="center">
 <img src="/images/improvedImagesOverEpochs.png" width="650" height="500">
 </p>
   
-The numbers on the left side are epochs which produced the observed results.  We can see the faint images of faces by epoch 5, good impressions of faces by epoch 45, details of faces by epoch 165 and small improvements by epoch 205.  We want to do better than being stuck at epoch 45 and we want to be able to continue from epoch 45 if the process is interrupted.  We are, in a sense, mapping from a 100-dimensional space to images of faces and it takes time to complete the mapping from representative parts of the 100-dimensional space.      
-    
-Needless to say, the steam needs to be prepared for interruptions.  Even with preparation, attempts to restart can result in warnings about model and/or layers being trainable=False, dimensions of weights being incompatable for discriminate, generative, and gan models, and optimizations that collapse.  It's important to note that cGAN will not properly restart unless you resolve the issues of what is trainable, what are the correct dimensions, and what are viable models. If your only interest is in examining weights and optimization, then warning messages can often be ignored.  If you wish to restart from where you left off, then you ignore warning messages at considerable risk.   
- 
-Once issues with dimensions and what is trainable are resolved, there are then problems where models suffer from mode collapse when attempts are made to restart the cGAN.  What happened?  If you wish to continue executing the program, my experience is you need to handle the GAN model as a new instance using the loaded discriminator and generator models.  After all, the GAN model is there only to constrain and make the discriminator and generator work together.  
- 
-Restarting a cGAN requires saving models and their optimizations in case they are required after each epoch.  When saving a model, the layers that get saved are those which are trainable.  It's worth recalling that the discriminator model is set to trainable=False within the gan model.  Depending on the requirements, there may also be layers which are set to trainable=False.  In order to save the models, and recover the fixed weights, the weights must temporarily be set to trainable=True.  The following code fragment is required when saving the discriminator model:  
-```Python
-	filename = 'celeb/results/generator_model_dis%03d.h5' % (epoch+1)
-	d_model.trainable = True
-	for layer in d_model.layers:
-		layer.trainable = True
-	d_model.save(filename)
-	d_model.trainable = False
-	for layer in d_model.layers:
-		layer.trainable = False
-```
-And when loading:
-```Python
-	filename = 'celeb/results/generator_model_dis%03d.h5' % (ist_epochs)
-	d_model = load_model(filename, compile=True)
-	d_model.trainable = True
-	for layer in d_model.layers:
-		layer.trainable = True
-	d_model.summary()
-```
-Setting the layers on an individual basis may seem overly detailed but it is a reminder that, in some circumstances, there are layers which may need to be set to trainable-False. 
-
-Three parameters need to be changed in order to restart the process:  qRestart, epochs_done, epochs_goal.  These parameters are found near the beginning of the Python program.  
-```Python
-#    INDICATE IF STARTING OR CONTINUING FROM PREVIOUS RUN
-qRestart = False
-if qRestart:
-    epochs_done = 105
-    epochs_goal = 115
-else:
-    epochs_done = 0
-    epochs_goal = 100
-```
-qRestart is set to True indicating the program needs to start from where it left off.
-"epochs_done" refers to the number of epochs already completed.  
-"epochs_goal" refers to how many epochs you think you'd like to complete.  
 
 
 ### 3.  can we generate images of x-rays differentiating between healthy lungs and those with bacterial and viral pneumonia?
@@ -224,23 +143,6 @@ It's worth remembering that the GAN process sees the images at the convoluted pi
 In spite of all the imperfections in individual images, my belief is the final results are impressive.  Selecting out only faces featured as attractive helped in obtaining results which had considerable clarity.  
 
 
-```Python
-            n_classes = 4     
-            latent_dim = 100                  # 100 dimensional space
-            pts, labels_input = generate_latent_points(latent_dim, n_samples, cumProbs)
-            results = None
-            for i in range(n_samples):        # interpolate points in latent space
-                interpolated = interpolate_points(pts[2*i], pts[2*i+1])
-                for j in range(n_classes):    # run each class (embedding label)
-                    labels = np.ones(10,dtype=int)*j
-                    X = model.predict([interpolated, labels])  # predict image based on latent points & label
-                    X = (X + 1) / 2.0         # scale from [-1,1] to [0,1]
-                    if results is None:
-                        results = X
-                    else:
-                        results = vstack((results, X))   # stack the images for display
-            plot_generated(filename, results, labels_input, 10, n_samples, n_classes)   #generate plot
-```
 ###  5.  cGan streams and data sources:
 The following is an outline of the programming steps and Python code used to create the results observed in this repository.  There are three Python programs which are unique to this repository.  The purpose of the code is to assist those who struggled like I struggled to understand the fundamentals of Generative Adversarial Networks and to generate interesting and useful results beyond number and fashion generation.  My edits are not elegant... it purports to do nothing more than resolve a few issues which I imagine many novices to the field of Generative Adversarial Networks face.  If you know of better ways to do something, feel free to demonstrate it.  If you know of others who have found better ways to resolve these issues, feel free to point us to them.  
 
