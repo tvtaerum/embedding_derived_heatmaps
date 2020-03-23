@@ -1,4 +1,4 @@
-## cGANs: more than a pretty face
+## cGAN_diff: more than a pretty face
 ### Exploring where differences come from.  
 
 We make substantial progress when we go from discriminating between images to actually generating images.  We make even more progress when we are able to "make sense" of differences between images.  It's like asking a child, 1. tell me if this is a mom or a dad, 2. draw a mom and a dad for me, and 3. point out the differences between a drawing of a mom and a dad.    
@@ -26,6 +26,10 @@ The following is a screenshot illustrating our abiliity to indicate what regions
 <img src="/images/Female&MaleEmbeddings.png" width="650" height="290">
 </p>
 In particular, we have four rows of figures:  female, male, delta female, and delete male faces.  Yellow identifies large additions to make an image female or male, green represents moderate additions, and purple represents small additions.  To clarify, most often "addition" refers to something which is "added".  So, for instance, a beard or shadow is "added"; higher eyebrows are "added"; wider eyes are "added".  The definition is somewhat arbitrary but is detected by looking for darker regions.   
+
+<p align="center">
+<img src="/images/healthy_viral_bacterial_pneumonia.png" width="650" height="290">
+</p>
 
 ### Citations:
 <dl>
