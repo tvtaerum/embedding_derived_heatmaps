@@ -28,7 +28,7 @@ The following is a screenshot illustrating our abiliity to indicate what regions
 In particular, we have four rows of figures:  female, male, delta female, and delete male faces.  Yellow identifies large additions to make an image female or male, green represents moderate additions, and purple represents small additions.  To clarify, most often "addition" refers to something which is "added".  So, for instance, a beard or shadow is "added"; higher eyebrows are "added"; wider eyes are "added".  The definition is somewhat arbitrary but is detected by looking for darker regions.   
 
 <p align="center">
-<img src="/images/healthy_viral_bacterial_pneumonia.png" width="650" height="490">
+<img src="/images/healthy_viral_bacterial_pneumonia.png" width="650" height="590">
 </p>
 
 ### Citations:
