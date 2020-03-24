@@ -1,4 +1,4 @@
-## cGAN_diff: more than a pretty face
+## cGAN_diff: more than pretty faces
 ### Exploring where differences come from.  
 
 We make substantial progress when we go from discriminating between images to actually generating images.  We make even more progress when we are able to "make sense" of differences between images.  It's like asking a child, 1. tell me if this is a mom or a dad, 2. draw a mom and a dad for me, and 3. point out the differences between a drawing of a mom and a dad.    
