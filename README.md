@@ -18,19 +18,19 @@ I thank Jason Brownlee for his work and tutorials at https://machinelearningmast
 ### Motivation for housekeeping with xrays of children with pneumonia:
 Considerable effort has been applied to creating discriminators between patients who are healthy and those patients with pneumonia based on x-rays, an avenue which hasn't been explored as much is identifying where these differences exist.  In some cases, the discriminator is run, 90% accuracy is achieved, but no test that I am aware of tells the observer what the differences are and whether or not the apparent differences may partly be an artifact.  There are many indirect tests but I want to know which regions in an image are helpful in discrimination.  
 
-As a reminder of what was previously established, we can see in the faces above, that the https://github.com/tvtaerum/cGANs_housekeeping program did a good job of creating images that are obviously "attractive females with high cheek bones" in contrast to "attractive males".  Can we generate images which make apparent the differences between typical female and male faces.  Can we also generate images which make apparent the differences between "healthy lungs", "viral pneumonia" and "bacterial pneumonia".  
+As a reminder of what was previously established, we can see in the faces above, that the https://github.com/tvtaerum/cGANs_housekeeping program did a good job of creating images that are obviously "attractive females with high cheek bones" in contrast to "attractive males".  The question now is, "can we generate images which make apparent the differences between typical female and male faces?" and "can we also generate images which make apparent the differences between "healthy lungs", "viral pneumonia" and "bacterial pneumonia?".   
 </p>
 
 The following is a screenshot illustrating our abiliity to indicate what regions of a face allows us to determine if it is and "attractive female with high cheek bones" or an "attractive male".   
 <p align="center">
 <img src="/images/Female&MaleEmbeddings.png" width="650" height="290">
 </p>
-In particular, we have four rows of figures:  female, male, delta female, and delete male faces.  Yellow identifies large additions to make an image female or male, green represents moderate additions, and purple represents small additions.  To clarify, most often "addition" refers to something which is "added".  So, for instance, a beard or shadow is "added"; higher eyebrows are "added"; wider eyes are "added".  The definition is somewhat arbitrary but is detected by looking for darker regions.   
+In particular, we have four rows of figures:  female, male, delta female, and delete male faces.  Yellow identifies large additions to make an image female or male, green represents moderate additions, and purple represents small additions.  To clarify, most often "addition" refers to something which is "added".  So, for instance, a beard or shadow is "added"; higher eyebrows are "added"; wider eyes are "added".  The definition is somewhat arbitrary but is detected by looking for darker regions.  In the last row, for instance, we can see, for instance, the addition of a shadow due to facial hair.  
 
-<p align="center">
+In the screen shot below, the first three rows are cGAN generations of healthy lungs, lungs with viral pneumonia, and lungs with bacterial pneumonia.  Below that we see three sets of two comparisons:  healthy vs viral, healthy vs bacterial, and viral vs bacterial.  <p align="center">
 <img src="/images/healthy_viral_bacterial_pneumonia.png" width="650" height="590">
 </p>
-
+It's worth noting that the "sense" of contrasts for x-rays is quite different than a regular photo.  In x-rays, it is whiter that matters and not darker.  
 ### Citations:
 <dl>
 <dt> Jason Brownlee, How to Develop a Conditional GAN (cGAN) From Scratch,</dt><dd> Available from https://machinelearningmastery.com/how-to-develop-a-conditional-generative-adversarial-network-from-scratch, accessed January 4th, 2020. </dd>
