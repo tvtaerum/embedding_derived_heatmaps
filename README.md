@@ -27,7 +27,8 @@ The following is a screenshot illustrating our abiliity to indicate what regions
 <p align="center">
 <img src="/images/Female&MaleEmbeddings.png" width="650" height="290">
 </p>
-In particular, we have four rows of figures:  female, male, delta female, and delta male faces.  In order to generalize what we observe with faces to x-rays, we need to understand what we're seeing with respect to faces.  The first two rows are generated images of x-rays for females and males.  The next two rows show the pixel by pixel differences between the generated images.  Yellow identifies large additions required to make an image female or or make an image male, green represents moderate additions, and purple represents small additions.  To clarify, generally "additions" refers to something which is "added".  So, for instance, a beard or shadow is "added" to make "male"; higher eyebrows are "added" to make "female".  The definition of what is "added" is arbitrary but operationally "added" is defined as something which makes a part of a face look darker.  In the last row, for instance, we can see the "addition" of facial hair to make an image "male".   
+In particular, we have four rows of figures:  female, male, delta female, and delta male faces.  In order to generalize what we observe with faces to x-rays, we need to understand what we're seeing with respect to faces.  The first two rows are generated images of x-rays for females and males.  The next two rows show the pixel by pixel differences between the generated images.  Yellow identifies large additions required to make an image female or or make an image male, green represents moderate additions, and purple represents small additions.  To clarify, generally "additions" refers to something which is "added".  So, for instance, a beard or shadow is "added" to make "male"; higher eyebrows are "added" to make "female".  The definition of what is "added" is arbitrary but operationally "added" is defined as something which makes a part of a face look darker.  In the last row, for instance, we can see the "addition" of facial hair to make an image "male".    
+
 
 In the screen shot below, the first three rows are cGAN generations of healthy lungs, lungs with viral pneumonia, and lungs with bacterial pneumonia.  Below that we see three sets of two comparisons:  healthy vs viral, healthy vs bacterial, and viral vs bacterial.  Each comparisons has different interesting questions.  Is there evidence of artifacts?  Are there detectable differences between pneumonia due to virus and pneumonia due to bacteria.  
 
@@ -50,9 +51,7 @@ https://github.com/torywalker/histogram-equalizer, accessed March, 2020</dd>
 ### Deliverables:
   1.  description of issues identified and resolved within specified limitations
   2.  code fragments illustrating the core of how an issue was resolved
-  3.  a Python program to prepare images for selection and training
-  4.  a cGan Python program with embedding
-  5.  a Python program which vectorizes images generated with embedding
+  3.  two Python programs which vectorize face and x-ray images and compare these images producing contrasts
 
 ### Limitations and caveates:
 
