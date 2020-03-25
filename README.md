@@ -91,7 +91,7 @@ In making comparisons between female and male faces, there is considerable advan
 ### 3.  can we generate images of x-rays differentiating between healthy lungs and those with bacterial and viral pneumonia based solely on alternating embeddings?
 As we saw in https://github.com/tvtaerum/xray_housekeeping, it is possible to both create and vertorize images where healthy lungs versus viral pneumonia lungs versus bacterial pneumonia lungs can be created simply by selecting a corresponding label/embedding.  
 
-### 4.  can we create images which point out the differneces betweeen healthy lungs and those with bacterial and viral pneumonia?
+### 4.  can we create images which point out the differences betweeen healthy lungs and those with bacterial and viral pneumonia?
 In making comparisons between healthy lungs and lungs with viral or bacterial pneumonia, there is considerable advantage to the fact that the same weights can be used to create the different images and the only difference is the label/embedding.  
 
 ###  5.  cGan streams and data sources:
@@ -101,13 +101,15 @@ The recommended folder structure looks as follows:
 <ul>
     <li>embedding_derived_heatmaps-master (or any folder name)</li>
 	<ul>
-       <li> files (also contains Python programs - program run from here)</li>
+       <li> files (also contains two Python programs - program run from here)</li>
 	<ul>
 		<li> <b>celeb</b></li>
 		<ul>
-			<li> <b>img_align_celeba</b> (contains about 202,599 images for data input)</li>
-			<li> <b>real_plots</b> (contains arrays of real images for inspection)</li>
-			<li> <b>results</b> (contains generated png images of faces and and h5 files for models saved by program)</li>
+			<li> <b>label_results</b> (contains five .h5 generator model files)</li>
+		</ul>
+		<li> <b>xray</b></li>
+		<ul>
+			<li> <b>label_results</b> (contains five .h5 generator model files)</li>
 		</ul>
 		<li> <b>cgan</b> (contains images from summary analysis of models)</li>
 	</ul>
