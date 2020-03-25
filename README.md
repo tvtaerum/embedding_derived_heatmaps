@@ -117,36 +117,6 @@ The recommended folder structure looks as follows:
 	</ul>
 </ul>
 Those folders which are in <b>BOLD</b> need to be created. 
-All Python programs must be run from within the "file" directory.  
+All Python programs must be run from within the "file" directory. 
 
-#### a. download celebrity images from https://www.kaggle.com/jessicali9530/celeba-dataset
-#### b. select out subset of images with attractive faces and compress <a href="/files/images_convert_mtcnn_attractive_faces.py">MTCNN convert attractive faces</a>
-
-When executing, you will get the following output:  
-<p align="left">
-<img src="/images/LoadingAndCompressing50000Images.png" width="200" height="100">
-</p>  
-
-It will create two files:
-    ids_align_celeba_attractive.npz
-    image_align_celeba_attractive.npz
-    
-#### c. cGan stream <a href="/files/tutorial_latent_space_embedding_cgan.py">cGan embedding</a>
-
-Refer back to Python coding fragments for explanation on restarting program.
-
-#### d. vectorize images <a href="/files/images_run_thru_models_1_restart_cgan.py">run thru faces using embedding</a> 
-
-The list of images for visual examination depends on the lstEpochs variable included in the code fragment below.  In the example below, epochs 5, 15, 25... 145, 150 are displayed.  If you have fewer than 150 epochs saved then you'll need to adjust the lstEpochs list.    
-```Python
-directory = 'celeb/results/'
-iFile = 0
-for idx, filename in enumerate(listdir(directory)):
-    if ".h5" in filename and not("_gan" in filename) and not("_dis" in filename):
-        iFile += 1
-        lstEpochs = [5,15,25,35,45,55,65,75,85,95,105,115,125,135,145,150]
-        if iFile in lstEpochs: 
-            model = load_model(directory + filename)
-            gen_weights = array(model.get_weights())
-```
 #### LICENSE  <a href="/LICENSE">MIT license</a>
