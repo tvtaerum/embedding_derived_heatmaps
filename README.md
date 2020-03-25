@@ -34,7 +34,8 @@ In the screen shot below, the first three rows are cGAN generations of healthy l
 <p align="center">
 <img src="/images/healthy_viral_bacterial_pneumonia.png" width="650" height="590">
 </p>
-It's worth noting that the "sense" of contrasts for x-rays is quite different than a regular photo.  In x-rays, it is whiter that matters and not darker.  In x-rays, it is lighter pixels (e.g. of bone and possibly inflammation) which are of interest.  
+It's worth noting that the "sense" of contrasts for x-rays is quite different than a regular photo.  In x-rays, it is whiter that matters and not darker.  In x-rays, it is lighter pixels (e.g. of bone and possibly inflammation) which are of interest.    
+
 ### Citations:
 <dl>
 <dt> Jason Brownlee, How to Develop a Conditional GAN (cGAN) From Scratch,</dt><dd> Available from https://machinelearningmastery.com/how-to-develop-a-conditional-generative-adversarial-network-from-scratch, accessed January 4th, 2020. </dd>
