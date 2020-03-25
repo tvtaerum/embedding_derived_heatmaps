@@ -95,11 +95,11 @@ As we saw in https://github.com/tvtaerum/xray_housekeeping, it is possible to bo
 In making comparisons between healthy lungs and lungs with viral or bacterial pneumonia, there is considerable advantage to the fact that the same weights can be used to create the different images and the only difference is the label/embedding.  
 
 ###  5.  cGan streams and data sources:
-The following is an outline of the programming steps and Python code used to create the results observed in this repository.  There are three Python programs which are unique to this repository.  The purpose of the code is to assist those who struggled like I struggled to understand the fundamentals of Generative Adversarial Networks and to generate interesting and useful results beyond number and fashion generation.  My edits are not elegant... it purports to do nothing more than resolve a few issues which I imagine many novices to the field of Generative Adversarial Networks face.  If you know of better ways to do something, feel free to demonstrate it.  If you know of others who have found better ways to resolve these issues, feel free to point us to them.  
+The following is an outline of the programming steps and Python code used to create the results observed in this repository.  There are two Python programs which are unique to this repository and five modelling (.h5) files.   
 
 The recommended folder structure looks as follows:
 <ul>
-    <li>cGANs_housekeeping-master (or any folder name)</li>
+    <li>embedding_derived_heatmaps-master (or any folder name)</li>
 	<ul>
        <li> files (also contains Python programs - program run from here)</li>
 	<ul>
