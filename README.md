@@ -83,56 +83,19 @@ https://github.com/torywalker/histogram-equalizer, accessed March, 2020</dd>
 
 ### 1.  can we generate images of female and male faces by alternating only embeddings:
 
-Even with reasonable learning rates, convergence can slide into "mode collapse" and require a manual restart.  The stream provides one way of giving intial estimates multiple but limited opportunities to halt it's slide towards mode collapse.  The process also allows the stream to retain whatever progress it has made towards convergence while recovering from mode collapse.     
+As we saw in https://github.com/tvtaerum/cGANs_housekeeping, it is possible to both create and vertorize images where male versus female faces can be created simply by selecting a corresponding label/embedding.  
 
-There are three critical measures of loss:
-<ol>
-	<li>dis_loss, _ = d_model.train_on_batch([X_real, labels_real], y_real)</li>
-	<li>gen_loss, _ = d_model.train_on_batch([X_fake, labels], y_fake)</li>
-	<li>gan_loss = gan_model.train_on_batch([z_input, labels_input], y_gan)</li>
-</ol>
-Before examining the screen shot which comes below, I define the measures used to determine when mode collapse is imminent and recovery is necessary:
-<table style="width:100%">
-  <tr> <th> Column </th>    <th> measure </th>      <th> example </th>  </tr>
-  <tr> <td> 1 </td>  <td> epoch/max_epochs </td>    <td> 1/100 </td>  </tr>
-  <tr> <td> 2 </td>  <td> iteration/max_iterations  </td>    <td> 125/781 </td>  </tr>
-  <tr> <td> 3 </td>  <td> discriminator loss </td>    <td> d1(dis)=0.020 </td>  </tr>
-  <tr> <td> 4 </td>  <td> generator loss </td>    <td> d2(gen)=0.114 </td>  </tr>
-  <tr> <td> 5 </td>  <td> gan loss </td>    <td> g(gan)=2.368 </td>  </tr>
-  <tr> <td> 6 </td>  <td> run time (seconds) </td>   <td> secs=142 </td>  </tr>
-  <tr> <td> 7 </td>  <td> number of restarts </td>    <td> tryAgain=0 </td>  </tr>
-  <tr> <td> 8 </td>  <td> number of restarts using same base </td>    <td> nTripsOnSameSavedWts=0 </td>  </tr>
-  <tr> <td> 9 </td>  <td> number of weight saves </td>    <td> nSaves=2 </td>  </tr>
-</table>
-There are three parts in the screen shots below: 
-<p align="center">
-<img src="/images/escapingModeCollapse.png" width="850" height="225">
-</p>
 
 ### 2. can we create images which point out the differences between typical female and male faces:
 There is nothing quite as problematic as running a program and six days later the process is interrupted when it appears to be 90% complete.  Like many others, I have run streams for over 21 days using my GPU before something goes wrong and I am unable to restart the process.  Progress is measured in "epochs".  There is no guarantee but with a bit of good fortune and cGAN steams which are properly set up, every epoch brings an improvement in clarity.  The images which follow illustrate observed improvements over epochs.  
 
 
 ### 3.  can we generate images of x-rays differentiating between healthy lungs and those with bacterial and viral pneumonia based solely on alternating embeddings?
-While the use of normal like distributions may be useful, there is no reason to believe that other distributions will not work.  A small investigation on my part suggested that leptokurtic distributions were poorest in generating good images.  For most of the results discussed here, I use a uniform distribution in a bounded 100-dimensional space.   
-```Python
-def generate_latent_points(latent_dim, n_samples, cumProbs, n_classes=4):
-	# print("generate_latent_points: ", latent_dim, n_samples)
-	initX = -3.0
-	rangeX = 2.0*abs(initX)
-	stepX = rangeX / (latent_dim * n_samples)
-	x_input = asarray([initX + stepX*(float(i)) for i in range(0,latent_dim * n_samples)])
-	shuffle(x_input)
-	# reshape into a batch of inputs for the network
-	z_input = x_input.reshape(n_samples, latent_dim)
-	randx = random(n_samples)
-	labels = np.zeros(n_samples, dtype=int)
-	for i in range(n_classes):
-		labels = np.where((randx >= cumProbs[i]) & (randx < cumProbs[i+1]), i, labels)
-	return [z_input, labels]
-```
-Substantially, the routine divides the range of values from -3.0 to +3.0 into equal intervals and then randomizes the values by a shuffle.  The process works - I'm still examining whether it accelerates convergence with images.  
- 
+
+As we saw in https://github.com/tvtaerum/xray_housekeeping, it is possible to both create and vertorize images where healthy lungs versus viral pneumonia lungs versus bacterial pneumonia lungs can be created simply by selecting a corresponding label/embedding.  
+
+
+
 ### 4.  can we create images which point out the differneces betweeen healthy lungs and those with bacterial and viral pneumonia?
 In my attempts to improve the results of the generations, I initially overlooked a critical factor - what does the transformed data going into the cGAN look like.  When the data going into a stream is a derivative of another process, as in this case, it is critical to examine the quality of the input data before declaring the results to be useful or invalid.  
 
