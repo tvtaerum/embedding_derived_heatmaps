@@ -101,15 +101,15 @@ The recommended folder structure looks as follows:
 <ul>
     <li>embedding_derived_heatmaps-master (or any folder name)</li>
 	<ul>
-       <li> files (also contains Python programs - program run from here)</li>
+       <li> files (also contains two Python programs - program run from here)</li>
 	<ul>
 		<li> <b>celeb</b></li>
 		<ul>
-			<li> <b>label_results</b> (contains five .h5 generator files)</li>
+			<li> <b>label_results</b> (contains five .h5 generator model files)</li>
 		</ul>
 		<li> <b>xray</b></li>
 		<ul>
-			<li> <b>label_results</b> (contains five .h5 generator files)</li>
+			<li> <b>label_results</b> (contains five .h5 generator model files)</li>
 		</ul>
 		<li> <b>cgan</b> (contains images from summary analysis of models)</li>
 	</ul>
