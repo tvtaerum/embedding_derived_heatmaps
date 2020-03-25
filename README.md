@@ -81,7 +81,7 @@ https://github.com/torywalker/histogram-equalizer, accessed March, 2020</dd>
 </ol>
 
 
-### 1.  can we generate images of female and male faces based solely on embedding label:
+### 1.  can we generate images of female and male faces by alternating only embeddings:
 
 Even with reasonable learning rates, convergence can slide into "mode collapse" and require a manual restart.  The stream provides one way of giving intial estimates multiple but limited opportunities to halt it's slide towards mode collapse.  The process also allows the stream to retain whatever progress it has made towards convergence while recovering from mode collapse.     
 
@@ -113,7 +113,7 @@ There are three parts in the screen shots below:
 There is nothing quite as problematic as running a program and six days later the process is interrupted when it appears to be 90% complete.  Like many others, I have run streams for over 21 days using my GPU before something goes wrong and I am unable to restart the process.  Progress is measured in "epochs".  There is no guarantee but with a bit of good fortune and cGAN steams which are properly set up, every epoch brings an improvement in clarity.  The images which follow illustrate observed improvements over epochs.  
 
 
-### 3.  can we generate images of x-rays differentiating between healthy lungs and those with bacterial and viral pneumonia?
+### 3.  can we generate images of x-rays differentiating between healthy lungs and those with bacterial and viral pneumonia based solely on alternating embeddings?
 While the use of normal like distributions may be useful, there is no reason to believe that other distributions will not work.  A small investigation on my part suggested that leptokurtic distributions were poorest in generating good images.  For most of the results discussed here, I use a uniform distribution in a bounded 100-dimensional space.   
 ```Python
 def generate_latent_points(latent_dim, n_samples, cumProbs, n_classes=4):
