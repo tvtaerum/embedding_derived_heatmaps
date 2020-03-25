@@ -51,24 +51,25 @@ def interpolate_points(p1, p2, n_steps=10):
 
 # create a plot of generated images
 def plot_generated(win_title, examples, labels, n, n_samples, n_classes):
-    strLabels = ['healthy','viral','delt_health','delt_viral']
+    strLabels = ['healthy','viral','bacter','health vs viral','viral vs health',
+                 'health vs bact','bact vs health','viral vs bact','bact_vs viral']
+    n_rows = n_classes + n_classes*(n_classes-1)
     # plot images
     ii=-1
     for i in range(n_samples):
-        for j in range(n_classes):
-            # strLabel = str(j)
-            strLabel = strLabels[j]
+        for j1 in range(n_rows):
+            strLabel = strLabels[j1]
             for j in range(n):
                 ii+=1
                 # define subplot
-                plt.subplot(n_classes*n_samples, n, 1 + ii)
+                plt.subplot(n_rows*n_samples, n, 1 + ii)
                 # turn off axis
                 plt.axis('off')
-                plt.text(12.0,10.0,strLabel, fontsize=6, color='white')
+                plt.text(15.0,12.0,strLabel, fontsize=6, color='white')
                 # plot raw pixel data
                 plt.imshow(examples[ii, :, :])
     plt.gcf().canvas.set_window_title(win_title)
-    (plt.gcf()).set_size_inches(12,10)
+    (plt.gcf()).set_size_inches(15,15)
     plt.show()
 
 def compare_X1X2(X1,X2, n, n_samples, n_classes):
@@ -95,28 +96,24 @@ def compare_X1X2(X1,X2, n, n_samples, n_classes):
 
 directory = 'xray/label_results/'
 lstEpochs = [345,365,380,395,405]
+latent_dim = 100
+interp_dim = 10
 for idx, filename in enumerate(listdir(directory)):
     if ".h5" in filename and not("_gan" in filename) and not("_dis" in filename):
         iFile = int(re.findall(r'\d+',filename)[0])
         if iFile in lstEpochs: 
             model = load_model(directory + filename)
             gen_weights = array(model.get_weights())
-            subclasses = [0,1]
-            subclasses = [0,2]
-            subclasses = [1,2]
-            n_samples = 3
+            n_samples = 1
             n_classes = 3
-            n_images = 4
             cumProbs = [0.,         0.2696918,  0.52534249, 1.00000003]
-            latent_dim = 100
             pts, labels_input = generate_latent_points(latent_dim, n_samples, cumProbs)
             # interpolate pairs
             results = None
             for i in range(n_samples):            # interpolate points in latent space
                 interpolated = interpolate_points(pts[2*i], pts[2*i+1])
-                for j in range(len(subclasses)):
-                    jj=subclasses[j]
-                    labels = np.ones(10,dtype=int)*jj
+                for j in range(n_classes):
+                    labels = np.ones(10,dtype=int)*j
                     X = model.predict([interpolated, labels])
                     # scale from [-1,1] to [0,1]
                     X = (X + 1) / 2.0
@@ -124,17 +121,17 @@ for idx, filename in enumerate(listdir(directory)):
                         results = X
                     else:
                         results = vstack((results, X))
-                    if j==0:
-                        X1 = X
-                    elif j==1:
-                        X2 = X
+                # print("X.shape: ", X.shape)
+                # print("results.shape: ", results.shape)
+                for j1 in range(0,n_classes-1):
+                    for j2 in range(j1+1,n_classes):
+                        X1 = results[j1*10:j1*10+10, :, :]
+                        X2 = results[j2*10:j2*10+10, :, :]
                         XX = compare_X1X2(X2, X1, 10, n_samples, n_classes)
                         results = vstack((results,XX))
                         XX = compare_X1X2(X1, X2, 10, n_samples, n_classes)
                         results = vstack((results,XX))
-                        # import sys
-                        # sys.exit(0)
             # plot the result
-            plot_generated(filename, results, labels_input, 10, n_samples, n_images)
+            plot_generated(filename, results, labels_input, 10, n_samples, n_classes)
 
 
