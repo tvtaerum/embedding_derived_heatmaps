@@ -101,7 +101,7 @@ The recommended folder structure looks as follows:
 <ul>
     <li>embedding_derived_heatmaps-master (or any folder name)</li>
 	<ul>
-	<li> <b>files</b> (also contains two Python programs - program run from here)</li>
+	<li> files (also contains two Python programs - program run from here)</li>
 	<ul>
 		<li> <b>celeb</b></li>
 		<ul>
@@ -113,7 +113,7 @@ The recommended folder structure looks as follows:
 		</ul>
 		<li> <b>cgan</b> (contains images from summary analysis of models)</li>
 	</ul>
-	<li> <b>images</b> (contains images for README file)</li>
+	<li> images (contains images for README file)</li>
 	</ul>
 </ul>
 Those folders which are in <b>BOLD</b> need to be created. 
