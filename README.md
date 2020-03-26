@@ -23,7 +23,7 @@ Considerable effort has been applied to building neural nets to discriminate bet
 As a reminder of what was previously established, we can see in the faces above, that the https://github.com/tvtaerum/cGANs_housekeeping program did a good job of creating images that are obviously "attractive females with high cheek bones" in contrast to "attractive males".  The question now is, "can we generate images which make apparent the differences between typical female and male faces?".  Once we have done that, can we apply those same techniques in comparing images healthy lungs, lungs with viral pneumonia, and lungs with bacterial pneumonia.  
 </p>
 
-The following is a screenshot illustrating our abiliity to indicate what regions of a face allows us to determine if it is and "attractive female with high cheek bones" or an "attractive male".   
+The following is a screenshot illustrating our abiliity to indicate what regions of a face allows us to determine if it is an "attractive female with high cheek bones" or an "attractive male".   
 <p align="center">
 <img src="/images/Female&MaleEmbeddings.png" width="650" height="290">
 </p>
