@@ -1,5 +1,11 @@
-## cGAN_diff: more than pretty faces
-### Exploring where differences come from.  
+## cGAN_diff: hunting for differences
+### Hunting for where differences come from.  
+
+Now that we have proven that we are able to generate distinguishable images of attractive females and males, as well as generate distinguishable images of healthy lungs and lungs with pneumonia, we want to be able to identify those areas which were modified due to the embedding/label.  
+
+<p align="center">
+<img src="/images/WildFoxSideView.png" width="650" height="135">
+</p>
 
 We make substantial progress when we go from discriminating between images to actually generating images.  We make even more progress when we are able to "make sense" of differences between images.  It's like asking a child, 1. tell me if this is a mom or a dad, 2. draw a mom and a dad for me, and 3. point out the differences between a drawing of a mom and a dad.    
 
